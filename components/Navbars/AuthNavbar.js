@@ -1,11 +1,21 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 // components
 
 import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
+import router from "next/router";
 
 export default function Navbar(props) {
 	const [navbarOpen, setNavbarOpen] = React.useState(false);
+	const [isLoged, setIsLoged] = useState(false);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setIsLoged(localStorage.getItem("x-token") ? true : false);
+		}
+	}, []);
+
 	return (
 		<>
 			<nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
@@ -84,10 +94,15 @@ export default function Navbar(props) {
 
 							<li className="flex items-center">
 								<button
+									onClick={() => {
+										localStorage.removeItem("x-token");
+										router.push("/auth/login");
+									}}
 									className="bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
 									type="button"
 								>
-									<i className="fas fa-arrow-alt-circle-down"></i> Download
+									<i className="fas"></i>
+									Inicia Session{" "}
 								</button>
 							</li>
 						</ul>

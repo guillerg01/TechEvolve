@@ -11,7 +11,7 @@ export default function Login() {
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
 	useEffect(() => {
-		localStorage.getItem("x-token") && router.push("/landing");
+		localStorage.getItem("x-token") && router.push("/");
 	}, []);
 	const handleSubmitLogin = (event) => {
 		event.preventDefault();
@@ -19,8 +19,8 @@ export default function Login() {
 			.post(
 				`https://cronometro.onrender.com/api/auth/`,
 				{
-					name: user,
-					password: password,
+					name: event.target[0].value,
+					password: event.target[1].value,
 				},
 				{
 					headers: { "Content-Type": "application/json" },
@@ -34,7 +34,7 @@ export default function Login() {
 					console.log(response);
 					setUser("");
 					setPassword("");
-					localStorage.getItem("x-token") && router.push("/landing");
+					localStorage.getItem("x-token") && router.push("/admin/dashboard");
 				} else {
 					console.error(response.data.msg);
 				}
@@ -88,9 +88,6 @@ export default function Login() {
 											type="email"
 											className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 											placeholder="Correo"
-											onChange={(e) => {
-												setUser(e.target.value);
-											}}
 										/>
 									</div>
 
@@ -105,9 +102,6 @@ export default function Login() {
 											type="password"
 											className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 											placeholder="Password"
-											onChange={(e) => {
-												setPassword(e.target.value);
-											}}
 										/>
 									</div>
 									<div>

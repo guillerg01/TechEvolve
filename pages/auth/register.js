@@ -11,7 +11,7 @@ export default function Register() {
 	const [password, setPassword] = useState("");
 
 	useEffect(() => {
-		localStorage.getItem("x-token") && router.push("/landing");
+		localStorage.getItem("x-token") && router.push("/");
 	}, []);
 	const handleSubmitRegister = (event) => {
 		event.preventDefault();
@@ -30,7 +30,7 @@ export default function Register() {
 				if (response.data.ok) {
 					localStorage.setItem("x-token", response.data.token);
 					console.log(localStorage.getItem("x-token"));
-					localStorage.getItem("x-token") && router.push("/landing");
+					localStorage.getItem("x-token") && router.push("/admin/dashboard");
 					setUser("");
 					setPassword("");
 				} else {
